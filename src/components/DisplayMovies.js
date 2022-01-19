@@ -40,7 +40,7 @@ const MovieInfo = styled.span`
   text-overflow: ellipsis;
 `;
 
-const MovieComponent = (props) => {
+const DisplayMovies = (props) => {
 	const { Title, Year, imdbID, Type, Poster } = props.movie
 return(
 	<MovieContainer onClick={()=>props.onMovieSelect(imdbID)}>
@@ -54,4 +54,4 @@ return(
 )
 } 
 
-export default MovieComponent
+export default DisplayMovies;

@@ -11,6 +11,7 @@ import styled from "styled-components";
 const Container = styled.div`
 display: flex;
 flex-direction: row;
+font-family: 'Dosis', sans-serif,
 padding: 20px 30px;
 justify-content: center;
 border-bottom: 1px solid lightgray;
@@ -18,15 +19,19 @@ border-bottom: 1px solid lightgray;
 const CoverImage = styled.img`
 object-fit: cover;
 height: 350px;
+padding: 30px
 `;
 const InfoColumn = styled.div`
 display: flex;
 flex-direction: column;
+font-family: 'Dosis', sans-serif,
 margin: 20px;
 `;
+
 const MovieName = styled.span`
 font-size: 22px;
 font-weight: 600;
+font-family: 'Dosis', sans-serif,
 color: black;
 margin: 15px 0;
 white-space: nowrap;
@@ -41,6 +46,7 @@ text-overflow: ellipsis;
 const MovieInfo = styled.span`
   font-size: 16px;
   font-weight: 500;
+  font-family: 'Dosis', sans-serif,
   color: black;
   overflow: hidden;
   margin: 4px 0;
@@ -56,13 +62,14 @@ const Close = styled.span`
   color: black;
   background: lightgray;
   height: fit-content;
+  font-family: 'Dosis', sans-serif,
   padding: 8px;
   border-radius: 50%;
   cursor: pointer;
   opacity: 0.8;
 `;
 
-const MovieInfoComponent = (props) => {
+const MoviesInfo = (props) => {
 	const [movieInfo, setMovieInfo] = useState()
 	const { selectedMovie } = props 
 
@@ -113,4 +120,4 @@ return(
 } 
 
 
-export default MovieInfoComponent
+export default MoviesInfo;

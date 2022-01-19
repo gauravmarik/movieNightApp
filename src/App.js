@@ -1,9 +1,9 @@
-import Axios from 'axios';
+import axios from 'axios';
 import { useState } from 'react'
 import styled from "styled-components";
-import MovieComponent from "./components/MovieComponent.js";
-import MovieInfoComponent from './components/MovieInfoComponent.js'
-
+import DisplayMovies from "./components/DisplayMovies.js";
+import MoviesInfo from './components/MoviesInfo.js'
+ 
 
 export const apikey = '2610afcc'
 
@@ -11,6 +11,7 @@ const Container = styled.div `
 display: flex;
 flex-direction: column;
 `;
+
 const Header = styled.div`
 display: flex;
 flex-direction: row;
@@ -19,8 +20,9 @@ justify-content: space-between;
 align-items: center;
 color: white;
 padding; 10px;
-font-size: 25px;
+font-size: 45px;
 font-weight: bold;
+font-family: 'Creepster', sans-serif;
 box-shadow: 0 3px 6px 0 #555
 `;
 
@@ -48,12 +50,15 @@ const SearchBox = styled.div`
 
 const SearchInput = styled.input`
   color: black;
-  font-size: 16px;
+  font-family: 'Dosis', sans-serif;
+  font-size: 20px;
   font-weight: bold;
   border: none;
   outline: none;
   margin-left: 15px;
 `;
+
+
 
 const MovieListContainer = styled.div`
   display: flex;
@@ -62,6 +67,7 @@ const MovieListContainer = styled.div`
   padding: 30px;
   gap: 25px;
   justify-content: space-evenly;;
+  font-family: 'Dosis', sans-serif;
 `;
 
 const Placeholder = styled.img`
@@ -72,44 +78,52 @@ const Placeholder = styled.img`
 `;
 
 function App()  {
-const [searchQuery, updateSearchQuery] = useState('')
-const [timeoutId, updateTimeoutId] = useState()
-const [movieList, updateMovieList] = useState([])
+const [searchQuery, setSearchQuery] = useState('')
+const [timeoutId, setTimeoutId] = useState()
+const [movieList, setMovieList] = useState([])
 const [selectedMovie, onMovieSelect] = useState()
 
-const fetchData = async (searchString) => {
-	const response = await Axios.get(`https://omdbapi.com/?s=${searchString}&apikey=${apikey}`)
+const moviesFetch = async (searchString) => {
+	const response = await axios.get(`https://omdbapi.com/?s=${searchString}&apikey=${apikey}`)
 	// console.log(response)
-	updateMovieList(response.data.Search)
+	setMovieList(response.data.Search)
 }
 const onTextChange = (e) => {
 	clearTimeout(timeoutId)
-	updateSearchQuery(e.target.value)
-	const timeout = setTimeout(() => fetchData(e.target.value), 500)
-	updateTimeoutId(timeout)
+	setSearchQuery(e.target.value)
+	const timeout = setTimeout(() => moviesFetch(e.target.value), 500)
+	setTimeoutId(timeout)
 };
 
   return (
     <Container>
 		<Header>
-			<AppName>React Movie App</AppName>
+			<AppName> Movie Night </AppName>
+
 			<SearchBox>
 				<SearchInput placeholder='Search Movie' value={searchQuery} onChange={onTextChange}/>
 			</SearchBox>
+				
 			</Header>
 			{selectedMovie && (
-			<MovieInfoComponent 
+			<MoviesInfo 
 			selectedMovie={selectedMovie} 
 			onMovieSelect={onMovieSelect}
 			/>
 			)}
       <MovieListContainer>
-		{movieList?.length ? movieList.map((movie, index) => <MovieComponent 
+		{movieList?.length ? (
+			movieList.map((movie, index) => (
+		<DisplayMovies 
 		key={index} 
 		movie={movie} 
 		onMovieSelect={onMovieSelect}
-		/>): (
-			<Placeholder src="/react-movie-app/movie-icon.svg" />
+		/>
+		))
+		) : (
+			// <Placeholder src="movieBackground.jpeg" />
+			// 'no movie here'
+			<img src="./movieBackground.jpeg" alt="" />
 		  )}
 	  </MovieListContainer>
     </Container>

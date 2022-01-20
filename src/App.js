@@ -70,12 +70,12 @@ const MovieListContainer = styled.div`
   font-family: 'Dosis', sans-serif;
 `;
 
-const Placeholder = styled.img`
-  width: 120px;
-  height: 120px;
-  margin: 150px;
-  opacity: 50%;
-`;
+// const Placeholder = styled.img`
+//   width: 120px;
+//   height: 120px;
+//   margin: 150px;
+//   opacity: 50%;
+// `;
 
 function App()  {
 const [searchQuery, setSearchQuery] = useState('')

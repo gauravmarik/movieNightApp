@@ -4,10 +4,9 @@ import styled from "styled-components";
 import DisplayMovies from "./components/DisplayMovies.js";
 import MoviesInfo from './components/MoviesInfo.js'
  
-
 export const apikey = '2610afcc'
 
-const Container = styled.div `
+const MovieContainer = styled.div `
 display: flex;
 flex-direction: column;
 `;
@@ -30,6 +29,7 @@ const AppName = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-left: 30px
 `;
 
 
@@ -38,15 +38,11 @@ const SearchBox = styled.div`
   flex-direction: row;
   padding: 10px 10px;
   border-radius: 6px;
-  margin-left: 20px;
+  margin: 30px;
   width: 50%;
   background-color: white;
 `;
 
-// const SearchIcon = styled.img`
-//   width: 32px;
-//   height: 32px;
-// `;
 
 const SearchInput = styled.input`
   color: black;
@@ -64,18 +60,17 @@ const MovieListContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 30px;
   gap: 25px;
   justify-content: space-evenly;;
   font-family: 'Dosis', sans-serif;
 `;
 
-// const Placeholder = styled.img`
-//   width: 120px;
-//   height: 120px;
-//   margin: 150px;
-//   opacity: 50%;
-// `;
+const Placeholder = styled.img`
+  width: 110%;
+  height: 110%;
+  margin: 0;
+//   opacity: 100%;
+`;
 
 function App()  {
 const [searchQuery, setSearchQuery] = useState('')
@@ -85,7 +80,6 @@ const [selectedMovie, onMovieSelect] = useState()
 
 const moviesFetch = async (searchString) => {
 	const response = await axios.get(`https://omdbapi.com/?s=${searchString}&apikey=${apikey}`)
-	// console.log(response)
 	setMovieList(response.data.Search)
 }
 const onTextChange = (e) => {
@@ -96,7 +90,7 @@ const onTextChange = (e) => {
 };
 
   return (
-    <Container>
+    <MovieContainer>
 		<Header>
 			<AppName> Movie Night </AppName>
 
@@ -121,12 +115,10 @@ const onTextChange = (e) => {
 		/>
 		))
 		) : (
-			// <Placeholder src="movieBackground.jpeg" />
-			// 'no movie here'
-			<img src="./movieBackground.jpeg" alt="" />
+			<Placeholder src="movieBackground.jpeg" />
 		  )}
 	  </MovieListContainer>
-    </Container>
+    </MovieContainer>
   );
 }
 

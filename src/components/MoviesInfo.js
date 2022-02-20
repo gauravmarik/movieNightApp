@@ -22,7 +22,6 @@ display: flex;
 flex-direction: column;
 margin: 20px;
 `;
-
 const MovieName = styled.span`
 font-size: 22px;
 font-weight: 600;

@@ -1,14 +1,14 @@
-import axios from 'axios';
-import { useState } from 'react'
+import axios from "axios";
+import { useState } from "react";
 import styled from "styled-components";
 import DisplayMovies from "./components/DisplayMovies.js";
-import MoviesInfo from './components/MoviesInfo.js'
- 
-export const apikey = '2610afcc'
+import MoviesInfo from "./components/MoviesInfo.js";
 
-const MovieContainer = styled.div `
-display: flex;
-flex-direction: column;
+export const apikey = "2610afcc";
+
+const MovieContainer = styled.div`
+	display: flex;
+	flex-direction: column;
 `;
 
 const Header = styled.div`
@@ -26,102 +26,103 @@ box-shadow: 0 3px 6px 0 #555
 `;
 
 const AppName = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-left: 30px
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-left: 30px;
 `;
-
 
 const SearchBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  padding: 10px 10px;
-  border-radius: 6px;
-  margin: 30px;
-  width: 50%;
-  background-color: white;
+	display: flex;
+	flex-direction: row;
+	padding: 10px 10px;
+	border-radius: 6px;
+	margin: 30px;
+	width: 50%;
+	background-color: white;
 `;
-
 
 const SearchInput = styled.input`
-  color: black;
-  font-family: 'Dosis', sans-serif;
-  font-size: 20px;
-  font-weight: bold;
-  border: none;
-  outline: none;
-  margin-left: 15px;
+	color: black;
+	font-family: "Dosis", sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+	border: none;
+	outline: none;
+	margin-left: 15px;
 `;
 
-
-
 const MovieListContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 0px;
-  gap: 25px;
-  justify-content: space-evenly;;
-  font-family: 'Dosis', sans-serif;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	padding: 0px;
+	gap: 25px;
+	justify-content: space-evenly;
+	font-family: "Dosis", sans-serif;
 `;
 
 const Placeholder = styled.img`
-  width: 110%;
-  height: 110%;
-  margin: 0px;
-  padding: 0px;
-  opacity: 90%;
+	width: 110%;
+	height: 110%;
+	margin: 0px;
+	padding: 0px;
+	opacity: 90%;
 `;
 
-function App()  {
-const [searchQuery, setSearchQuery] = useState('')
-const [timeoutId, setTimeoutId] = useState()
-const [movieList, setMovieList] = useState([])
-const [selectedMovie, onMovieSelect] = useState()
+function App() {
+	const [searchQuery, setSearchQuery] = useState("");
+	const [timeoutId, setTimeoutId] = useState();
+	const [movieList, setMovieList] = useState([]);
+	const [selectedMovie, onMovieSelect] = useState();
 
-const moviesFetch = async (searchString) => {
-	const response = await axios.get(`https://omdbapi.com/?s=${searchString}&apikey=${apikey}`)
-	setMovieList(response.data.Search)
-}
-const onTextChange = (e) => {
-	clearTimeout(timeoutId)
-	setSearchQuery(e.target.value)
-	const timeout = setTimeout(() => moviesFetch(e.target.value), 500)
-	setTimeoutId(timeout)
-};
+	const moviesFetch = async (searchString) => {
+		const response = await axios.get(
+			`https://omdbapi.com/?s=${searchString}&apikey=${apikey}`
+		);
+		setMovieList(response.data.Search);
+	};
+	const onTextChange = (e) => {
+		clearTimeout(timeoutId);
+		setSearchQuery(e.target.value);
+		const timeout = setTimeout(() => moviesFetch(e.target.value), 500);
+		setTimeoutId(timeout);
+	};
 
-  return (
-    <MovieContainer>
-		<Header>
-			<AppName> Movie Night </AppName>
+	return (
+		<MovieContainer>
+			<Header>
+				<AppName> Movie Night </AppName>
 
-			<SearchBox>
-				<SearchInput placeholder='Search Movie' value={searchQuery} onChange={onTextChange}/>
-			</SearchBox>
-				
+				<SearchBox>
+					<SearchInput
+						placeholder="Search Movie"
+						value={searchQuery}
+						onChange={onTextChange}
+					/>
+				</SearchBox>
 			</Header>
 			{selectedMovie && (
-			<MoviesInfo 
-			selectedMovie={selectedMovie} 
-			onMovieSelect={onMovieSelect}
-			/>
+				<MoviesInfo
+					selectedMovie={selectedMovie}
+					onMovieSelect={onMovieSelect}
+				/>
 			)}
-      <MovieListContainer>
-		{movieList?.length ? (
-			movieList.map((movie, index) => (
-		<DisplayMovies 
-		key={index} 
-		movie={movie} 
-		onMovieSelect={onMovieSelect}
-		/>
-		))
-		) : (
-			<Placeholder src="./movieBackground.jpeg" />
-		  )}
-	  </MovieListContainer>
-    </MovieContainer>
-  );
+			<MovieListContainer>
+				{movieList?.length ? (
+					movieList.map((movie, index) => (
+						<DisplayMovies
+							key={index}
+							movie={movie}
+							onMovieSelect={onMovieSelect}
+						/>
+					))
+				) : (
+					<Placeholder src="./movieBackground.jpeg" />
+				)}
+			</MovieListContainer>
+		</MovieContainer>
+	);
 }
 
 export default App;

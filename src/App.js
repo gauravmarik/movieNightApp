@@ -4,7 +4,6 @@ import styled from "styled-components";
 import DisplayMovies from "./components/DisplayMovies.js";
 import MoviesInfo from './components/MoviesInfo.js'
  
-
 export const apikey = '2610afcc'
 
 const MovieContainer = styled.div `
@@ -30,7 +29,7 @@ const AppName = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 30px
+  margin-left: 30px
 `;
 
 
@@ -39,7 +38,7 @@ const SearchBox = styled.div`
   flex-direction: row;
   padding: 10px 10px;
   border-radius: 6px;
-  margin: 20px;
+  margin: 30px;
   width: 50%;
   background-color: white;
 `;

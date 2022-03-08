@@ -56,7 +56,6 @@ const Close = styled.span`
   padding: 20px;
   border-radius: 50%;
   cursor: pointer;
-  opacity: 0.8;
 `;
 
 const MoviesInfo = (props) => {

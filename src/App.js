@@ -102,6 +102,7 @@ function App() {
 					/>
 				</SearchBox>
 			</Header>
+
 			{selectedMovie && (
 				<MoviesInfo
 					selectedMovie={selectedMovie}

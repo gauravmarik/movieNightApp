@@ -6,6 +6,8 @@ import MoviesInfo from "./components/MoviesInfo.js";
 
 export const apikey = "2610afcc";
 
+// edits 13mar22
+
 const MovieContainer = styled.div`
 	display: flex;
 	flex-direction: column;
